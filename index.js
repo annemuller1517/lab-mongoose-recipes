@@ -20,7 +20,25 @@ mongoose
     return Recipe.deleteMany()
   })
   .then(() => {
+    return Recipe.insertMany(data)
+    // data.forEach(element => {
+    //   console.log(element.title)
+    // });
     // Run your code here, after you have insured that the connection was made
+  })
+  .then(()=> {
+    return Recipe.updateOne({title:"Rigatoni alla Genovese"}, {duration: 100})
+  })
+  .then(() => {
+    console.log("Succesful update")
+    return Recipe.deleteOne({title: "Carrot Cake"})
+  })
+  .then(() => {
+    console.log("Successful deleted")
+    return mongoose.connection.close()
+  })
+  .then(() => {
+    console.log("closed")
   })
   .catch(error => {
     console.error('Error connecting to the database', error);
